@@ -162,8 +162,12 @@ class ChatViewModel {
 
     userListDel(username)
     {
-        this.chatView.lstUsers.removeItem(username);
+        if (this.chatView.workarea && this.chatView.lstUsers)
+        {
+            this.chatView.lstUsers.removeItem(username);
+        }
     }
+
 
     exit()
     {
