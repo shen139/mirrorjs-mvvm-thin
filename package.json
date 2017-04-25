@@ -1,0 +1,39 @@
+{
+    "name": "mirrorjs-mvvm-thin",
+    "version": "0.0.1",
+    "description": "mirrorjs simple MVVM chat (thin client)",
+    "author": {
+        "name": "Alimonti Stefano <shen139@gmail.com>"
+    },
+    "license": "MIT",
+    "homepage": "http://www.mirrorjs.com/",
+    "main": "./src",
+    "directories": {
+        "lib": "./src"
+    },
+    "scripts": {
+        "build": "grunt build",
+        "start": "node src/server.js"
+    },
+    "dependencies": {
+        "finalhandler": "^1.0.2",
+        "grunt": "^1.0.1",
+        "grunt-contrib-copy": "^1.0.0",
+        "mirrorjs": "^0.3.1",
+        "mirrorjs-widgets": "0.0.1",
+        "serve-static": "^1.12.1",
+        "sockjs": "^0.3.18"
+    },
+    "keywords": [
+        "thin client",
+        "example",
+        "starter",
+        "nodejs",
+        "chat",
+        "mirrorjs"
+    ],
+    "engines": {
+        "node": ">= 0.10",
+        "npm": ">= 2.1"
+    }
+}
