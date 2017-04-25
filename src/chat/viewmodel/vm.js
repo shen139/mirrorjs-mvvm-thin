@@ -30,26 +30,6 @@ class ChatViewModel {
 
         // Show login form
         this.showLogin();
-
-        // Messages listener
-        this.app.broadcast.onmessage((eventGroup, eventName, obj) =>
-        {
-            if (eventGroup === "chat")
-            {
-                switch (eventName)
-                {
-                    case "login":
-                        this.userListAdd(obj);
-                        break;
-                    case "logout":
-                        this.userListDel(obj);
-                        break;
-                    case "message":
-                        this.addMessage(obj.from, obj.msg);
-                        break;
-                }
-            }
-        })
     }
 
 
@@ -109,6 +89,32 @@ class ChatViewModel {
         this.chatView.btnSend.on("click", () => this.sendMessage());
 
         this.chatView.workarea.on("beforeclose", () => this.exit());
+
+        this.broadcastListeners();
+    }
+
+
+    broadcastListeners()
+    {
+        // Messages listener
+        this.app.broadcast.onmessage((eventGroup, eventName, obj) =>
+        {
+            if (eventGroup === "chat")
+            {
+                switch (eventName)
+                {
+                    case "login":
+                        this.userListAdd(obj);
+                        break;
+                    case "logout":
+                        this.userListDel(obj);
+                        break;
+                    case "message":
+                        this.addMessage(obj.from, obj.msg);
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -147,7 +153,10 @@ class ChatViewModel {
 
     userListAdd(username)
     {
-        this.chatView.lstUsers.addItem(username, username);
+        if (this.chatView.workarea && this.chatView.lstUsers)
+        {
+            this.chatView.lstUsers.addItem(username, username);
+        }
     }
 
 
