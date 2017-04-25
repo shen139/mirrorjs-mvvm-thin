@@ -14,12 +14,12 @@ class ChatModel extends MVVMEmit {
 
     authenticate(nickname)
     {
+        this.userIsLoggedIn = false;
+        this.nickname = null;
+
         if (nickname.length === 0 || this.sharedObj.usersMap[nickname])
         {
             // nickname already logged in (or invalid)
-            this.userIsLoggedIn = false;
-            this.nickname = null;
-
             this.emit("invalidUser", true);
         }
         else
@@ -48,8 +48,11 @@ class ChatModel extends MVVMEmit {
         if (this.userIsLoggedIn && this.nickname && this.sharedObj.usersMap[this.nickname])
         {
             delete this.sharedObj.usersMap[this.nickname];
+            this.userIsLoggedIn = false;
 
             this.app.broadcast.send("chat", "logout", this.nickname);
+
+            this.nickname = null;
         }
     }
 

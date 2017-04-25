@@ -16,7 +16,6 @@ class ChatViewModel {
         {
             if (loggedIn)
             {
-                // Show chat
                 this.showChat();
             }
         });
@@ -33,9 +32,22 @@ class ChatViewModel {
     }
 
 
+    /**
+     * onClose
+     *  On application close
+     *  (called by mirrorjs framework when the app exits or when the connection goes down)
+     *
+     */
     onClose()
     {
         this.exit();
+    }
+
+
+    exit()
+    {
+        this.model.logout();
+        this.app.exit();
     }
 
 
@@ -90,13 +102,17 @@ class ChatViewModel {
 
         this.chatView.workarea.on("beforeclose", () => this.exit());
 
-        this.broadcastListeners();
+        this.broadcastListener();
     }
 
 
-    broadcastListeners()
+    /**
+     * broadcastListener
+     *  Messages listener
+     *
+     */
+    broadcastListener()
     {
-        // Messages listener
         this.app.broadcast.onmessage((eventGroup, eventName, obj) =>
         {
             if (eventGroup === "chat")
@@ -166,13 +182,6 @@ class ChatViewModel {
         {
             this.chatView.lstUsers.removeItem(username);
         }
-    }
-
-
-    exit()
-    {
-        this.model.logout();
-        this.app.exit();
     }
 }
 
